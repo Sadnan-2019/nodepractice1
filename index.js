@@ -7,11 +7,12 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  
   res.send("Practice ONE is going now !");
 });
 
 const users = [
-  { id: 1, name: "kalachad", email: "kala@gmail.com" },
+  { id: 1, name: "kalaChad", email: "kala@gmail.com" },
   { id: 2, name: "chad", email: "chad@gmail.com" },
   { id: 3, name: "chadmama", email: "chadmama@gmail.com" },
   { id: 4, name: "lalmama", email: "lalmama@gmail.com" },
@@ -31,7 +32,17 @@ app.post("/user", (req, res) => {
   // res.send("post success");
 });
 app.get("/users", (req, res) => {
-  res.send(users);
+
+  console.log(req.query)
+  if(req.query.name){
+
+    const search = req.query.name.toLocaleLowerCase();
+    const match = users.filter(user => user.name.toLocaleLowerCase().includes(search));
+    res.send(match)
+  }else{
+    res.send(users);
+  }
+  
 });
 app.get("/user/:id", (req, res) => {
   const id = parseInt(req.params.id);
