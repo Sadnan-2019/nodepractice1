@@ -24,7 +24,11 @@ const users = [
 // })
 app.post("/user", (req, res) => {
   console.log("request", req.body);
-  res.send("post success");
+  const user = req.body;
+  user.id = users.length + 1;
+  users.push(user);
+  res.send(user);
+  // res.send("post success");
 });
 app.get("/users", (req, res) => {
   res.send(users);
